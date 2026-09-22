@@ -1,5 +1,6 @@
 import { JevMark, NeonMark } from '@/components/brand-marks'
 import { FlappyArena, type SharedResult } from '@/components/flappy-arena'
+import { Leaderboard } from '@/components/leaderboard'
 import { getResult } from '@/lib/db/queries'
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ result?: string }> }) {
@@ -29,6 +30,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ r
         </p>
       </header>
       <FlappyArena initialResult={initialResult} resultMissing={resultMissing} />
+      <section className="mt-10 flex w-full justify-center">
+        <Leaderboard />
+      </section>
       <footer className="text-muted-foreground mt-12 text-center text-xs">
         The game sends <code>birdY</code>, <code>birdVelocity</code>, <code>pipeDistance</code> and the gap edges. Jev returns <code>{'{ action, confidence }'}</code> and flies the bird.
       </footer>

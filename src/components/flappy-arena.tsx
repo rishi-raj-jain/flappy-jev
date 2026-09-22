@@ -525,6 +525,8 @@ export function FlappyArena({ initialResult = null, resultMissing = false }: { i
         })
         const data = await res.json()
         if (data?.id) setResultId(data.id)
+        // Tell the leaderboard a fresh row landed so it re-reads from Neon.
+        if (typeof window !== 'undefined') window.dispatchEvent(new Event('flappy-jev:result-saved'))
       } catch {
         // Save failed (offline), the popup still shows the local result.
       }

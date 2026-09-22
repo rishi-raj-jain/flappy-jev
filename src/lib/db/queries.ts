@@ -31,6 +31,8 @@ export async function getLeaderboard(limit = 10): Promise<LeaderboardEntry[]> {
       points,
     })
     .from(results)
+    // Skip games where neither board scored a point.
+    .where(sql`greatest(${results.youScore}, ${results.jevScore}) > 0`)
     .orderBy(desc(points), desc(results.createdAt))
     .limit(limit)
   return rows.map((r) => ({

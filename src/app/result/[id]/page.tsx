@@ -48,7 +48,10 @@ export default async function ResultPage({ params }: { params: Promise<{ id: str
       <ResultRedirect id={id} />
       <div className="text-muted-foreground mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium">
         <span>
-          Powered by <JevMark className="text-foreground" /> Jev and <NeonMark className="text-foreground" />
+          Powered by <JevMark className="text-foreground" /> Jev and{' '}
+          <a href="https://neon.com" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" aria-label="Neon">
+            <NeonMark className="text-foreground" />
+          </a>
         </span>
       </div>
       <h1 className="font-arcade mb-2 text-2xl tracking-tight sm:text-3xl">Flappy Jev</h1>

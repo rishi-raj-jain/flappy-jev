@@ -9,7 +9,7 @@ export async function getResult(id: string): Promise<ResultRow | null> {
 
 export type LeaderboardEntry = {
   id: string
-  name: string // 'Jev' when Jev won, otherwise the player's name
+  name: string // the player's name (the board shows it as "<name> vs Jev")
   winner: Winner
   points: number // the top score in that game (max of the two boards)
   youScore: number
@@ -37,7 +37,7 @@ export async function getLeaderboard(limit = 10): Promise<LeaderboardEntry[]> {
     .limit(limit)
   return rows.map((r) => ({
     id: r.id,
-    name: r.winner === 'jev' ? 'Jev' : r.username,
+    name: r.username,
     winner: r.winner as Winner,
     points: Number(r.points),
     youScore: r.youScore,

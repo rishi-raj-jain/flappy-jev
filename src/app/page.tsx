@@ -17,7 +17,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ r
       <header className="mb-6 text-center">
         <div className="text-muted-foreground mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium">
           <span>
-            Powered by <JevMark className="text-foreground" /> Jev and <NeonMark className="text-foreground" />
+            Powered by <JevMark className="text-foreground" /> Jev and{' '}
+            <a href="https://neon.com" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80" aria-label="Neon">
+              <NeonMark className="text-foreground" />
+            </a>
           </span>
         </div>
         <div className="flex items-center justify-center gap-3">

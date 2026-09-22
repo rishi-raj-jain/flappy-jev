@@ -8,6 +8,7 @@
  * and when the tab regains focus.
  */
 
+import { NeonMark } from '@/components/brand-marks'
 import { Card } from '@/components/ui/card'
 import { Trophy } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
@@ -60,7 +61,12 @@ export function Leaderboard() {
           <Trophy className="h-4 w-4 text-yellow-500" />
           <span className="font-semibold">Leaderboard</span>
         </div>
-        <span className="text-muted-foreground text-xs">Top scores · live from Neon</span>
+        <span className="text-muted-foreground inline-flex items-center gap-1 text-xs">
+          Live from{' '}
+          <a href="https://neon.com" target="_blank" rel="noopener noreferrer" className="hover:text-foreground inline-flex items-center transition-colors" aria-label="Neon">
+            <NeonMark className="h-[0.85em]" />
+          </a>
+        </span>
       </div>
 
       {loading && entries.length === 0 ? (
@@ -73,12 +79,16 @@ export function Leaderboard() {
             <li key={e.id} className="flex items-center gap-3 px-4 py-2.5">
               <span className="w-6 shrink-0 text-center text-sm tabular-nums">{i < 3 ? MEDALS[i] : <span className="text-muted-foreground">{i + 1}</span>}</span>
               <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${dotClass(e.winner)}`} aria-hidden />
-              <span className="min-w-0 flex-1 truncate font-medium">
-                {e.name}
-                {e.winner === 'tie' && <span className="text-muted-foreground ml-1.5 text-xs font-normal">(tie)</span>}
-              </span>
-              <span className="text-muted-foreground shrink-0 text-xs tabular-nums">
-                {e.youScore}–{e.jevScore}
+              <span className="flex min-w-0 flex-1 items-center gap-1.5">
+                <span className={`flex min-w-0 items-baseline gap-1 ${e.winner === 'you' ? 'text-foreground font-semibold' : 'text-muted-foreground font-normal'}`}>
+                  <span className="truncate">{e.name}</span>
+                  <span className="shrink-0 text-xs tabular-nums opacity-70">({e.youScore})</span>
+                </span>
+                <span className="text-muted-foreground/60 shrink-0 text-xs font-normal">vs</span>
+                <span className={`shrink-0 ${e.winner === 'jev' ? 'text-foreground font-semibold' : 'text-muted-foreground font-normal'}`}>
+                  Jev <span className="text-xs tabular-nums opacity-70">({e.jevScore})</span>
+                </span>
+                {e.winner === 'tie' && <span className="text-muted-foreground shrink-0 text-xs font-normal">(tie)</span>}
               </span>
               <span className="font-arcade w-10 shrink-0 text-right text-base tabular-nums">{e.points}</span>
             </li>

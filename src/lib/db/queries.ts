@@ -19,7 +19,7 @@ export type LeaderboardEntry = {
 // Top games by maximum points scored, newest first on ties. Read fresh from Neon
 // on every call (the /api/leaderboard route is force-dynamic) so the board always
 // reflects the latest rows.
-export async function getLeaderboard(limit = 10): Promise<LeaderboardEntry[]> {
+export async function getLeaderboard(limit = 10, offset = 0): Promise<LeaderboardEntry[]> {
   const points = sql<number>`greatest(${results.youScore}, ${results.jevScore})`
   const rows = await db
     .select({
@@ -35,6 +35,7 @@ export async function getLeaderboard(limit = 10): Promise<LeaderboardEntry[]> {
     .where(sql`greatest(${results.youScore}, ${results.jevScore}) > 0`)
     .orderBy(desc(points), desc(results.createdAt))
     .limit(limit)
+    .offset(offset)
   return rows.map((r) => ({
     id: r.id,
     name: r.username,
